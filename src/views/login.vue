@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import {onlogin} from '../utlis/api'
 
 export default {
    name:'login',
@@ -26,7 +25,7 @@ export default {
     return {
         ruleForm:{
           username:'',
-          password:''
+          password:'',
         },
         rules:{
             username:[
@@ -43,48 +42,68 @@ export default {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             // alert('submit!');
-            this.getLogin()
+            this.handlerLogin()
           } else {
             console.log('error submit!!');
             return false;
           }
-        });
+        }); 
       },
-       //登录接口验证
-   async getLogin(){
-    try{
-     const res = await onlogin(this.ruleForm)
-     console.log(res,'res+>');
-     this.$router.push('/')
-    }catch(e){
-       console.log(e.msg);
-    }
-}
+
+        async handlerLogin(){
+            try {
+            const token =  await this.$store.dispatch('setStoerToken',this.ruleForm)
+            if (!token) return
+            const ionfo =  await this.$store.dispatch('setStoreUserInfo')
+            if (!ionfo) return
+            this.$message.success('登录成功，获取用户信息成功')
+            this.$router.push('/')
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
+    //    //登录接口验证
+    //     async getLogin(){
+    //         try{
+    //         const res = await onlogin(this.ruleForm)
+    //         this.$router.push('/')
+    //         }catch(e){
+    //         console.log(e.msg);
+    //         }
+    //     },
+        // async getIonfos(){
+        //     try {
+        //         const userinfo = await getIonfo()
+        //         console.log(userinfo);
+        //     } catch (e) {
+        //         console.log(e.message);
+        //     }
+        // }
     },
 }
 </script>
 
 <style lang="scss" scoped>
-.box{
-   width: 100%;
-   height: 100%;
-   background: url('http://vue.mengxuegu.com/img/login.b665435f.jpg');
-   background-size: cover;
-   overflow: hidden;
-   .login_form{
-    h2{
-        font-weight: 700;
-        font-size: 24px;
-        color: #fff;
-        text-align: center;
-        margin-bottom: 20px;
+.box {
+  width: 100%;
+  height: 100%;
+  background: url("http://vue.mengxuegu.com/img/login.b665435f.jpg");
+  background-size: cover;
+  overflow: hidden;
+  .login_form {
+    h2 {
+      font-weight: 700;
+      font-size: 24px;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 20px;
     }
     padding: 20px;
     width: 380px;
     margin: 160px auto;
     border-radius: 20px;
-    background: rgba($color: #fff, $alpha: 0.5)
-   }
+    background: rgba($color: #fff, $alpha: 0.5);
+  }
 }
 </style>
 

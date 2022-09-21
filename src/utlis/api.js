@@ -1,5 +1,5 @@
 import request from "./http";
-
+//登录
 export async function onlogin({username,password}){
 let {data} = await request({
     url:`/login`,
@@ -10,4 +10,12 @@ let {data} = await request({
     }
 })
 return data
+}
+//获取用户信息
+export async function getIonfo(){
+    let {data} = await request({
+        url:'http://vue.mengxuegu.com/pro-api/user/info/admin',
+        method:'GET'
+    })
+    return data
 }

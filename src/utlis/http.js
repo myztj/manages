@@ -2,6 +2,7 @@ import axios from 'axios'
 import { Message } from 'element-ui'
 const customCode = {
    200: '成功',
+   400: '密码错误',
    1000: '用户名错误',
    3000: '测试错误提示'
 }
@@ -10,25 +11,28 @@ const http = axios.create({
    timeout: 5000
 })
 
+import store from "../store"
+
 http.interceptors.request.use(config => {
-   config.headers.token = window.localStorage.getItem('token')
+   const token = store.getters.vuexToken
+
+   if (token) config.headers.authorization = 'Bearer ' + token
    return config
 }, error => {
    return Promise.reject(error)
 })
 
 http.interceptors.response.use(res => {
-   // _CostomHint(3000,'用户名错误')
    if (res.status == 200) {
-      _CostomHint(res.status, res.data.msg)
+      // _CostomHints(res.status,res.msg)
       return res
    }
-   if (res.status == 401) {
-      _CostomHint(res.status, res.data.msg)
-      return  //这里处理token过期
-   }
-   _CostomHint(res.status, res.data.msg)
 }, error => {
+   console.log(error);
+   if (error.response.status >= 400) {
+      _CostomHint(error.response.data.errorCode, error.response.data.msg)
+      return error
+   }
    return Promise.reject(error)
 })
 
@@ -45,6 +49,10 @@ const request = (options) => {
 const _CostomHint = (errorCode, msg) => {
    let title = customCode[errorCode] || msg || '发生位置错误'
    Message.error(title)
+}
+const _CostomHints = (rescode, msg) => {
+   let title = customCode[rescode] || msg || '成功'
+   Message.success(title)
 }
 
 
