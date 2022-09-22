@@ -19,3 +19,12 @@ export async function getIonfo(){
     })
     return data
 }
+
+//退出登录 
+export async function loginOut(){
+    let {data} = await request({
+        url:"http://vue.mengxuegu.com/pro-api/user/logout",
+        method:"post"
+    })
+    return data
+}

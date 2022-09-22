@@ -6,7 +6,7 @@ export const setToken = (token) => {
 }
 //获取本地token
 export const getToken = () => {
-    return localStorage.getItem('TOKEN')
+    return localStorage.getItem(TOKEN)
 }
 
 //设置本地用户信息

@@ -53,6 +53,7 @@ export default {
     background-color: #2d3a4b;
     color: #fff;
     height: 80px;
+    padding: 0;
     display: flex;
     justify-content: space-between;
     .title_left{

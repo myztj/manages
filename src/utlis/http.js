@@ -7,7 +7,7 @@ const customCode = {
    3000: '测试错误提示'
 }
 const http = axios.create({
-   baseURL: process.env.VUE_APP_BASES_API,
+   // baseURL: process.env.VUE_APP_BASES_API,
    timeout: 5000
 })
 
@@ -16,7 +16,7 @@ import store from "../store"
 http.interceptors.request.use(config => {
    const token = store.getters.vuexToken
 
-   if (token) config.headers.authorization = 'Bearer ' + token
+   if (token) config.headers.authorization = "Bearer " + token
    return config
 }, error => {
    return Promise.reject(error)
@@ -38,12 +38,13 @@ http.interceptors.response.use(res => {
 
 
 const request = (options) => {
-   options.method = options.method || "get"
+     options.method = options.method || "get"
    if (options.method.toLowerCase() === "get") {
       options.params = options.data || options.params
       delete options.data
    }
-
+   console.log(options.proxy)
+   http.defaults.baseURL = options.proxy || process.env.VUE_APP_BASES_API
    return http(options)
 }
 const _CostomHint = (errorCode, msg) => {
