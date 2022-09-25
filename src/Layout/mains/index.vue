@@ -1,6 +1,8 @@
 <template>
     <div>
-        <bread></bread>
+        <bread>
+        
+        </bread>
         <router-view><mains/></router-view>
     </div>
 </template>

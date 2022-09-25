@@ -28,3 +28,14 @@ export async function loginOut(){
     })
     return data
 }
+
+//查询列表
+
+export async function getlist(){
+    let {data} = await request({
+        url:'/supplier/list/search',
+        method:'post',
+        proxy:process.env.VUE_APP_BASES_V1
+    })
+    return data
+}

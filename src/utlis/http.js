@@ -1,11 +1,12 @@
 import axios from 'axios'
-import { Message } from 'element-ui'
+import { Message} from 'element-ui'
 const customCode = {
    200: '成功',
    400: '密码错误',
    1000: '用户名错误',
    3000: '测试错误提示'
 }
+
 const http = axios.create({
    // baseURL: process.env.VUE_APP_BASES_API,
    timeout: 5000
@@ -15,8 +16,7 @@ import store from "../store"
 
 http.interceptors.request.use(config => {
    const token = store.getters.vuexToken
-
-   if (token) config.headers.authorization = "Bearer " + token
+   if(token) config.headers.authorization = "Bearer " + token
    return config
 }, error => {
    return Promise.reject(error)
@@ -43,7 +43,6 @@ const request = (options) => {
       options.params = options.data || options.params
       delete options.data
    }
-   console.log(options.proxy)
    http.defaults.baseURL = options.proxy || process.env.VUE_APP_BASES_API
    return http(options)
 }

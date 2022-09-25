@@ -20,6 +20,7 @@
 import asides from '../Layout/asides'
 import hender from '../Layout/hender'
 import mains from '../Layout/mains'
+import {getlist} from "../utlis/api"
 export default {
   data() {
     return {
@@ -42,7 +43,17 @@ export default {
         }
       }
       }
-    }
+    },
+    // created() {
+    //   this.hhh()
+    // },
+    // methods: {
+    //   hhh(){
+    //    getlist().then(res=>{
+    //     console.log(res);
+    //    })
+    // }
+    // },
 }
 </script>
 
@@ -52,7 +63,6 @@ export default {
     color: #333;
     padding: 0;
     height: 60px;
-    text-align: center;
     line-height: 60px;
   }
   
@@ -64,8 +74,6 @@ export default {
   .el-main {
     background-color: #E9EEF3;
     color: #333;
-    text-align: center;
-    line-height: 160px;
     height: 90vh;
   }
 </style>

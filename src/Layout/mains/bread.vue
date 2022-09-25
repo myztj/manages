@@ -1,10 +1,9 @@
 <template>
-    <div>
-        <el-card>
+    <div class="bread">
+        <el-card v-if="!(title=='首页')">
             <el-breadcrumb separator="/">
   <el-breadcrumb-item :to="{ path: '/' }">{{title}}</el-breadcrumb-item>
 </el-breadcrumb>
-         
         </el-card>
     </div>
 </template>
@@ -22,5 +21,7 @@ export default {
 </script>
 
 <style>
-
+.bread{
+    margin-bottom: 20px;
+}
 </style>
